@@ -1,0 +1,12 @@
+Binaries/
+TestBuild/
+Saved/
+Intermediate/
+Build/
+DerivedDataCache/
+
+*.sln
+*.suo
+*.sdf
+*.opensdf
+*.opendb
