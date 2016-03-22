@@ -26,18 +26,34 @@ public class VoxelTerrain : ModuleRules
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
         ////////////////////// Custom Voxel Terrain Stuff Starts Here //////////////////////////////////////
-        // You will need to compile and add additional libraries if you want to use this on other platforms!
-        if (Target.Platform == UnrealTargetPlatform.Win64)
+        // You will need to compile and add additional libraries if you want to use this on platforms not listed below!
+        switch (Target.Platform)
         {
-            PublicAdditionalLibraries.Add(Path.Combine(ThirdPartyPath, "accidental-noise-library", "Builder", "RelWithDebInfo", "Builder.lib"));
-            PublicAdditionalLibraries.Add(Path.Combine(ThirdPartyPath, "accidental-noise-library", "Framework", "RelWithDebInfo", "Framework.lib"));
-            PublicAdditionalLibraries.Add(Path.Combine(ThirdPartyPath, "accidental-noise-library", "Imaging", "RelWithDebInfo", "Imaging.lib"));
-            PublicAdditionalLibraries.Add(Path.Combine(ThirdPartyPath, "accidental-noise-library", "Module", "RelWithDebInfo", "Module.lib"));
-            PublicAdditionalLibraries.Add(Path.Combine(ThirdPartyPath, "accidental-noise-library", "Noise", "RelWithDebInfo", "Noise.lib"));
-            PublicAdditionalLibraries.Add(Path.Combine(ThirdPartyPath, "accidental-noise-library", "RGBA", "RelWithDebInfo", "RGBA.lib"));
+            // 64-bit Windows
+            case UnrealTargetPlatform.Win64:
+                PublicAdditionalLibraries.Add(Path.Combine(ThirdPartyPath, "accidental-noise-library", "build", "ANL", "x64", "ANL.lib"));
+                break;
+
+            // 32-bit Windows
+            case UnrealTargetPlatform.Win32:
+                PublicAdditionalLibraries.Add(Path.Combine(ThirdPartyPath, "accidental-noise-library", "build", "ANL", "x86", "ANL.lib"));
+                break;
+
+            // Mac
+            case UnrealTargetPlatform.Mac:
+                PublicAdditionalLibraries.Add(Path.Combine(ThirdPartyPath, "accidental-noise-library", "build", "ANL", "Universal", "libANL.so"));
+                break;
+            
+            // Linux
+            case UnrealTargetPlatform.Linux:
+                PublicAdditionalLibraries.Add(Path.Combine(ThirdPartyPath, "accidental-noise-library", "build", "ANL", "x64", "libANL.so"));
+                break;
+
+            default:
+                break;
         }
 
-        // Add the headers for PolyVox and ANL so we can access them later.
+        // Include the headers for PolyVox and ANL so we can access them later.
         PublicIncludePaths.Add(Path.Combine(ThirdPartyPath, "polyvox", "include"));
         PublicIncludePaths.Add(Path.Combine(ThirdPartyPath, "accidental-noise-library"));
         ////////////////////// End Voxel Terrain Stuff //////////////////////////////////////////////////////
