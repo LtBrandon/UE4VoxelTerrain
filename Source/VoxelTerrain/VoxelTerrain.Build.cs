@@ -21,9 +21,10 @@ public class VoxelTerrain : ModuleRules
 
     public VoxelTerrain(TargetInfo Target)
 	{
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "ProceduralMeshComponent" });
 
-		PrivateDependencyModuleNames.AddRange(new string[] {  });
+
+        PrivateDependencyModuleNames.AddRange(new string[] {  });
 
         ////////////////////// Custom Voxel Terrain Stuff Starts Here //////////////////////////////////////
         // You will need to compile and add additional libraries if you want to use this on platforms not listed below!
