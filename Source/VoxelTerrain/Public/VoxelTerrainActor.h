@@ -91,7 +91,7 @@ public:
 	AVoxelTerrainActor();
 
 	// Called after the C++ constructor and after the properties have been initialized.
-	virtual void PostInitProperties() override;
+	virtual void PostInitializeComponents() override;
 
 	// Called when the actor has begun playing in the level
 	virtual void BeginPlay() override;
@@ -101,22 +101,22 @@ public:
 
 	// Some variables to control our terrain generator
 	// The seed of our fractal
-	UPROPERTY(Category = "Voxel Terrain", BlueprintReadWrite, VisibleAnywhere) int32 Seed;
+	UPROPERTY(Category = "Voxel Terrain", BlueprintReadWrite, EditAnywhere) int32 Seed;
 
 	// The number of octaves that the noise generator will use
-	UPROPERTY(Category = "Voxel Terrain", BlueprintReadWrite, VisibleAnywhere) int32 NoiseOctaves;
+	UPROPERTY(Category = "Voxel Terrain", BlueprintReadWrite, EditAnywhere) int32 NoiseOctaves;
 
 	// The frequency of the noise
-	UPROPERTY(Category = "Voxel Terrain", BlueprintReadWrite, VisibleAnywhere) float NoiseFrequency;
+	UPROPERTY(Category = "Voxel Terrain", BlueprintReadWrite, EditAnywhere) float NoiseFrequency;
 
 	// The scale of the noise. The output of the TerrainFractal is multiplied by this.
-	UPROPERTY(Category = "Voxel Terrain", BlueprintReadWrite, VisibleAnywhere) float NoiseScale;
+	UPROPERTY(Category = "Voxel Terrain", BlueprintReadWrite, EditAnywhere) float NoiseScale;
 
 	// The offset of the noise. This value is added to the output of the TerrainFractal.
-	UPROPERTY(Category = "Voxel Terrain", BlueprintReadWrite, VisibleAnywhere) float NoiseOffset;
+	UPROPERTY(Category = "Voxel Terrain", BlueprintReadWrite, EditAnywhere) float NoiseOffset;
 
 	// The maximum height of the generated terrain in voxels. NOTE: Changing this will affect where the ground begins!
-	UPROPERTY(Category = "Voxel Terrain", BlueprintReadWrite, VisibleAnywhere) float TerrainHeight;
+	UPROPERTY(Category = "Voxel Terrain", BlueprintReadWrite, EditAnywhere) float TerrainHeight;
 	
 private:
 	TSharedPtr<PolyVox::PagedVolume<PolyVox::MaterialDensityPair44>> VoxelVolume;

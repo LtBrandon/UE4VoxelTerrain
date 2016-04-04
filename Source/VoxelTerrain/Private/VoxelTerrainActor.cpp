@@ -28,13 +28,13 @@ AVoxelTerrainActor::AVoxelTerrainActor()
 }
 
 // Called after the C++ constructor and after the properties have been initialized.
-void AVoxelTerrainActor::PostInitProperties()
+void AVoxelTerrainActor::PostInitializeComponents()
 {
 	// Initialize our paged volume.
 	VoxelVolume = MakeShareable(new PagedVolume<MaterialDensityPair44>(new VoxelTerrainPager(Seed, NoiseOctaves, NoiseFrequency, NoiseScale, NoiseOffset, TerrainHeight)));
-	
+
 	// Call the base class's function.
-	Super::PostInitProperties();
+	Super::PostInitializeComponents();
 }
 
 // Called when the actor has begun playing in the level
