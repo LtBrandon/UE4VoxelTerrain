@@ -40,32 +40,36 @@ void AVoxelTerrainActor::PostInitializeComponents()
 // Called when the actor has begun playing in the level
 void AVoxelTerrainActor::BeginPlay()
 {
+	// Extract the voxel mesh from PolyVox
 	PolyVox::Region ToExtract(Vector3DInt32(0, 0, 0), Vector3DInt32(127, 127, 63));
 	auto ExtractedMesh = extractCubicMesh(VoxelVolume.Get(), ToExtract);
 	auto DecodedMesh = decodeMesh(ExtractedMesh);
 
-	auto Verticies = TArray<FVector>();
-	auto Indicies = TArray<int32>();
+	// Define variables to pass into the CreateMeshSection function
+	auto Vertices = TArray<FVector>();
+	auto Indices = TArray<int32>();
 	auto Normals = TArray<FVector>();
 	auto UV0 = TArray<FVector2D>();
 	auto Colors = TArray<FColor>();
 	auto Tangents = TArray<FProcMeshTangent>();
 
+	// Loop over all of the triangle vertex indices
 	for (uint32 i = 0; i < DecodedMesh.getNoOfIndices() - 2; i+=3)
 	{
+		// We need to add the vertices of each triangle in reverse or the mesh will be upside down
 		auto Index = DecodedMesh.getIndex(i + 2);
 		auto Vertex2 = DecodedMesh.getVertex(Index);
-		Indicies.Add(Verticies.Add(FPolyVoxVector(Vertex2.position) * 100.f));
+		Indices.Add(Vertices.Add(FPolyVoxVector(Vertex2.position) * 100.f));
 		
 		Index = DecodedMesh.getIndex(i + 1);
 		auto Vertex1 = DecodedMesh.getVertex(Index);
-		Indicies.Add(Verticies.Add(FPolyVoxVector(Vertex1.position) * 100.f));
+		Indices.Add(Vertices.Add(FPolyVoxVector(Vertex1.position) * 100.f));
 		
 		Index = DecodedMesh.getIndex(i);
 		auto Vertex0 = DecodedMesh.getVertex(Index);
-		Indicies.Add(Verticies.Add(FPolyVoxVector(Vertex0.position) * 100.f));
+		Indices.Add(Vertices.Add(FPolyVoxVector(Vertex0.position) * 100.f));
 		
-		// Tangent calculations
+		// Calculate the tangents of our triangle
 		const FVector Edge01 = FPolyVoxVector(Vertex1.position - Vertex0.position);
 		const FVector Edge02 = FPolyVoxVector(Vertex2.position - Vertex0.position);
 
@@ -79,7 +83,8 @@ void AVoxelTerrainActor::BeginPlay()
 		}
 	}
 
-	Mesh->CreateMeshSection(0, Verticies, Indicies, Normals, UV0, Colors, Tangents, true);
+	// Finally create the mesh
+	Mesh->CreateMeshSection(0, Vertices, Indices, Normals, UV0, Colors, Tangents, true);
 }
 
 // VoxelTerrainPager Definitions
