@@ -85,6 +85,7 @@ void AVoxelTerrainActor::BeginPlay()
 
 	// Finally create the mesh
 	Mesh->CreateMeshSection(0, Vertices, Indices, Normals, UV0, Colors, Tangents, true);
+	Mesh->SetMaterial(0, TerrainMaterial);
 }
 
 // VoxelTerrainPager Definitions

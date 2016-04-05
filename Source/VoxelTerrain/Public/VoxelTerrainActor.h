@@ -99,6 +99,9 @@ public:
 	// The procedurally generated mesh that represents our voxels
 	UPROPERTY(Category = "Voxel Terrain", BlueprintReadWrite, VisibleAnywhere) class UProceduralMeshComponent* Mesh;
 
+	// The material to apply to our voxel terrain
+	UPROPERTY(Category = "Voxel Terrain", BlueprintReadWrite, EditAnywhere) UMaterialInterface* TerrainMaterial;
+
 	// Some variables to control our terrain generator
 	// The seed of our fractal
 	UPROPERTY(Category = "Voxel Terrain", BlueprintReadWrite, EditAnywhere) int32 Seed;
