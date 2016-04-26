@@ -42,12 +42,12 @@ public class VoxelTerrain : ModuleRules
 
             // Mac
             case UnrealTargetPlatform.Mac:
-                PublicAdditionalLibraries.Add(Path.Combine(ThirdPartyPath, "accidental-noise-library", "build", "ANL", "Universal", "libANL.so"));
+                PublicAdditionalLibraries.Add(Path.Combine(ThirdPartyPath, "accidental-noise-library", "build", "ANL", "Universal", "libANL.a"));
                 break;
             
             // Linux
             case UnrealTargetPlatform.Linux:
-                PublicAdditionalLibraries.Add(Path.Combine(ThirdPartyPath, "accidental-noise-library", "build", "ANL", "x64", "libANL.so"));
+                PublicAdditionalLibraries.Add(Path.Combine(ThirdPartyPath, "accidental-noise-library", "build", "ANL", "x64", "libANL.a"));
                 break;
 
             default:
