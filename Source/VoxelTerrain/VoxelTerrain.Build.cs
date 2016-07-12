@@ -4,19 +4,10 @@ using UnrealBuildTool;
 
 public class VoxelTerrain : ModuleRules
 {
-    // Some versions of the engine might have the ModulePath and ThirdPartyPath variables defined already
-    // 4.10.4 doesn't so we need to add them!
-
-    // The path to our game module; e.g. ProjectFolder/Source/ModuleName/
-    private string ModulePath
-    {
-        get { return Path.GetDirectoryName(RulesCompiler.GetModuleFilename(this.GetType().Name)); }
-    }
-
     // The path to our Third Party code assets; e.g. ProjectFolder/ThirdParty/
     private string ThirdPartyPath
     {
-        get { return Path.GetFullPath(Path.Combine(ModulePath, "../../ThirdParty/")); }
+        get { return Path.GetFullPath(Path.Combine(ModuleDirectory, "../../ThirdParty/")); }
     }
 
     public VoxelTerrain(TargetInfo Target)
