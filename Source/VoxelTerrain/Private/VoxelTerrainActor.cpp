@@ -45,9 +45,10 @@ void AVoxelTerrainActor::BeginPlay()
 	auto ExtractedMesh = extractCubicMesh(VoxelVolume.Get(), ToExtract);
 	auto DecodedMesh = decodeMesh(ExtractedMesh);
 
-	// We have four materials, so we need to do this four times
-	// This doesn't need to be a hard-coded value
-	for (int Material = 0; Material < 4; Material++)
+	// This isn't the most efficient way to handle this, but it works.
+	// To improve the performance of this code, you'll want to modify 
+	// the code so that you only run this section of code once.
+	for (int Material = 0; Material < TerrainMaterials.Num; Material++)
 	{
 		// Define variables to pass into the CreateMeshSection function
 		auto Vertices = TArray<FVector>();
@@ -154,7 +155,7 @@ void VoxelTerrainPager::pageIn(const PolyVox::Region& region, PagedVolume<Materi
 	// Now that we have our noise setup, let's loop over our chunk and apply it.
 	for (int x = region.getLowerX(); x <= region.getUpperX(); x++)
 	{
-		for (int y = region.getLowerY(); y <= region.getUpperY(); y++)
+		for (int y = region.getLowerY(); y <= region.getUpperY() / 2; y++)
 		{
 			for (int z = region.getLowerZ(); z <= region.getUpperZ(); z++)
 			{
