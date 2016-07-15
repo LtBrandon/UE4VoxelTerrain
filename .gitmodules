@@ -1,0 +1,6 @@
+[submodule "polyvox"]
+	path = ThirdParty/accidental-noise-library
+	url = https://github.com/LtBrandon/accidental-noise-library
+[submodule "accidental-noiselibrary"]
+	path = ThirdParty/polyvox
+	url = https://bitbucket.org/volumesoffun/polyvox/
