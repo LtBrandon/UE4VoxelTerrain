@@ -10,11 +10,10 @@ public class VoxelTerrain : ModuleRules
         get { return Path.GetFullPath(Path.Combine(ModuleDirectory, "../../ThirdParty/")); }
     }
 
-    public VoxelTerrain(TargetInfo Target)
-	{
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "ProceduralMeshComponent" });
-
-
+    public VoxelTerrain(ReadOnlyTargetRules Target) : base(Target)
+    {
+        PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
+        PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "ProceduralMeshComponent" });
         PrivateDependencyModuleNames.AddRange(new string[] {  });
 
         ////////////////////// Custom Voxel Terrain Stuff Starts Here //////////////////////////////////////

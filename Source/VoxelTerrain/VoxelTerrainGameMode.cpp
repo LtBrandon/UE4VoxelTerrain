@@ -1,8 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "VoxelTerrain.h"
 #include "VoxelTerrainGameMode.h"
-
+#include "VoxelTerrain.h"
 
 
 

@@ -5,21 +5,10 @@ using System.Collections.Generic;
 
 public class VoxelTerrainTarget : TargetRules
 {
-	public VoxelTerrainTarget(TargetInfo Target)
-	{
-		Type = TargetType.Game;
-	}
+    public VoxelTerrainTarget(TargetInfo Target) : base(Target)
+    {
+        Type = TargetType.Game;
 
-	//
-	// TargetRules interface.
-	//
-
-	public override void SetupBinaries(
-		TargetInfo Target,
-		ref List<UEBuildBinaryConfiguration> OutBuildBinaryConfigurations,
-		ref List<string> OutExtraModuleNames
-		)
-	{
-		OutExtraModuleNames.AddRange( new string[] { "VoxelTerrain" } );
-	}
+        ExtraModuleNames.AddRange(new string[] { "VoxelTerrain" });
+    }
 }
