@@ -82,9 +82,26 @@ bool AVoxelTerrainActor::GenerateChunk(int32 X, int32 Y, int32 Z)
 	// Convert to the actual location of the chunk
 	// 32 is the size of each side of the chunk, this can be adjusted in the ToExtract region below.
 	// If you change the chunk size make sure to adjust the OffsetLocation as well!
-	int32 ChunkX = (X + MaxChunksX) * 32;
-	int32 ChunkY = (Y + MaxChunksY) * 32;
-	int32 ChunkZ = (Z + MaxChunksZ) * 32;
+	int32 ChunkX;
+	int32 ChunkY;
+	int32 ChunkZ;
+
+	// Spherical terrains don't work with the offset X/Y/Z location, so disable it.
+	if (bIsSpherical)
+	{
+		ChunkX = X * 32;
+		ChunkY = Y * 32;
+		ChunkZ = Z * 32;
+	}
+
+	// Otherwise, enable the offset. This is will be used to slightly simplify a future section of code
+	// Until that is added this doesn't really do anything useful though!
+	else
+	{
+		ChunkX = (X + MaxChunksX) * 32;
+		ChunkY = (Y + MaxChunksY) * 32;
+		ChunkZ = (Z + MaxChunksZ) * 32;
+	}
 
 	// Spherical terrains need to be able to generate chunks on the Z axis.
 	// If you're not working with spherical terrain in your project you might consider
@@ -92,11 +109,11 @@ bool AVoxelTerrainActor::GenerateChunk(int32 X, int32 Y, int32 Z)
 	PolyVox::Region ToExtract(Vector3DInt32(ChunkX - 31, ChunkY - 31, ChunkZ - 31), Vector3DInt32(ChunkX + 31, ChunkY + 31, ChunkZ + 31));
 	
 	// Generate a blocky mesh from the voxels.
-	//auto ExtractedMesh = extractCubicMesh(VoxelVolume.Get(), ToExtract);
+	auto ExtractedMesh = extractCubicMesh(VoxelVolume.Get(), ToExtract);
 
 	// Uncomment this line to generate a smooth mesh from the voxels.
 	// This is mostly intended for use on spherical terrain.
-	auto ExtractedMesh = extractMarchingCubesMesh(VoxelVolume.Get(), ToExtract);
+	//auto ExtractedMesh = extractMarchingCubesMesh(VoxelVolume.Get(), ToExtract);
 
 	auto DecodedMesh = decodeMesh(ExtractedMesh);
 
